@@ -1,0 +1,92 @@
+body {
+	margin: 0;
+	font-family: "Lato", sans-serif;
+}
+
+.sidebar {
+	margin: 0;
+	padding: 0;
+	width: 200px;
+	background-color: #f1f1f1;
+	position: fixed;
+	height: 100%;
+	overflow: auto;
+}
+
+.sidebar .NavLink {
+	display: block;
+	color: black;
+	padding: 16px;
+	text-decoration: none;
+}
+
+/* .sidebar .NavLink {
+  background-color: #04AA6D;
+  color: white;
+} */
+
+.sidebar .NavLink:hover {
+	background-color: #555;
+	color: white;
+}
+
+.Nav {
+	background-color: black;
+	color: white;
+}
+
+/* .Title {
+	text-align: center;
+}
+
+.logout {
+	right: 0;
+} */
+
+.Nav h3,
+.Nav p {
+	margin: 0px;
+	display: inline-block;
+	padding: 1em;
+	vertical-align: top;
+	font-family: "Open Sans", sans-serif;
+	font-size: 16px;
+	line-height: 28px;
+}
+.Nav h3 {
+	font-weight: bold;
+	text-align: center;
+}
+
+.Nav p {
+	text-align: right;
+	padding-right: 1em;
+	background: #00a885;
+	float: right;
+}
+div.content {
+	margin-left: 200px;
+	padding: 1px 16px;
+	height: 1000px;
+}
+
+@media screen and (max-width: 700px) {
+	.sidebar {
+		width: 100%;
+		height: auto;
+		position: relative;
+	}
+	.sidebar .NavLink {
+		float: left;
+	}
+	div.content {
+		margin-left: 0;
+	}
+}
+
+@media screen and (max-width: 400px) {
+	.sidebar .NavLink {
+		text-align: center;
+		float: none;
+	}
+}
