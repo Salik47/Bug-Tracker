@@ -21,17 +21,18 @@ const SignIn = () => {
 
 		setValues({ ...values });
 		signin({ email, password }).then((data) => {
-			// if (data.message) {
-			// 	setValues({ ...values });
-			// } else {
-			// 	authenticate(data, () => {
-			// 		setValues({
-			// 			...values,
-			// 			redirectToReferrer: true,
-			// 		});
-			// 	});
-			// }
-			console.log(data);
+			if (!data.success) {
+				setValues({ ...values });
+				console.log(data.success);
+			} else {
+				authenticate(data, () => {
+					setValues({
+						...values,
+						redirectToReferrer: true,
+					});
+				});
+			}
+			console.log("data: ", data);
 		});
 	};
 	return (

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import showPwdImg from "../Img/Password/red-eye.png";
 import hidePwdImg from "../Img/Password/hide.png";
-
-const SignUp = () => {
+import { signup } from "../API/index";
+const SignUp = ({ history }) => {
 	const [values, setValues] = useState({
 		name: "",
 		email: "",
@@ -16,6 +16,31 @@ const SignUp = () => {
 	};
 	const [showPassword, setShowPassword] = useState(false);
 
+	const clickSubmit = (event) => {
+		console.log(name, email, password);
+		event.preventDefault();
+		setValues({ ...values, error: false, loading: true });
+		signup({ name, email, password }).then((data) => {
+			if (!data.success) {
+				setValues({
+					...values,
+				});
+			} else {
+				setValues({
+					...values,
+					name: "",
+					email: "",
+					password: "",
+				});
+				history.push({
+					pathname: "/signin",
+					state: {
+						message: "Account Created Successfully.",
+					},
+				});
+			}
+		});
+	};
 	return (
 		<>
 			<div className="row formF">
@@ -82,7 +107,11 @@ const SignUp = () => {
 						</div>
 						<br />
 						<div className="text-center">
-							<button type="submit" className="btn btn-primary ButtonF">
+							<button
+								type="submit"
+								onClick={clickSubmit}
+								className="btn btn-primary ButtonF"
+							>
 								Submit
 							</button>
 						</div>

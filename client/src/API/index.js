@@ -1,7 +1,7 @@
 import { API } from "./config";
 
 export const signup = (user) => {
-	return fetch(`${API}/signup`, {
+	return fetch(`http://localhost:1338/users/register`, {
 		method: "POST",
 		headers: {
 			Accept: "application/json",
