@@ -1,84 +1,110 @@
 import React, { useState } from "react";
 import showPwdImg from "../Img/Password/red-eye.png";
 import hidePwdImg from "../Img/Password/hide.png";
+import { signin, authenticate } from "../API/index";
 import "./Sign.css";
 const SignIn = () => {
-	const initialState = {
+	const [values, setValues] = useState({
 		email: "",
 		password: "",
-	};
-	const [formData, setFormData] = useState(initialState);
-	const [showPassword, setShowPassword] = useState(false);
-	const handleChange = (e) => {
-		setFormData({ ...formData, [e.target.name]: e.target.value });
-	};
+	});
 
+	const { email, password } = values;
+
+	const handleChange = (name) => (event) => {
+		setValues({ ...values, error: false, [name]: event.target.value });
+	};
+	const [showPassword, setShowPassword] = useState(false);
+	const clickSubmit = (event) => {
+		// console.log(name,email,password);
+		event.preventDefault();
+
+		setValues({ ...values });
+		signin({ email, password }).then((data) => {
+			// if (data.message) {
+			// 	setValues({ ...values });
+			// } else {
+			// 	authenticate(data, () => {
+			// 		setValues({
+			// 			...values,
+			// 			redirectToReferrer: true,
+			// 		});
+			// 	});
+			// }
+			console.log(data);
+		});
+	};
 	return (
 		<>
-			<div className="logo text-center">
-				<h1>Bug Tracker</h1>
-			</div>
-			<div className="wrapper">
-				<div className="inner-warpper text-center">
-					<h3 className="title">Login to your account</h3>
-					<form id="formvalidate" autoComplete="off">
-						<div className="input-group">
-							{/* <label className="palceholder" for="userName">
-								User Name
-							</label> */}
-							<input
-								className="form-control"
-								name="email"
-								id="email"
-								onChange={handleChange}
-								type="email"
-								placeholder="Email"
-							/>
-							<span className="lighting"></span>
+			<div className="container-fluid">
+				<div className="row formF">
+					<section className="col-sm-4"></section>
+					<section className="col-sm-4 inputF">
+						<hr />
+						<div className="text-center">
+							<h1 className="headingF">Bug Tracker</h1>
 						</div>
-						<div className="input-group pwd-container">
-							{/* <label className="palceholder" for="userPassword">
-								Password
-							</label> */}
-							<input
-								className="form-control"
-								name="password"
-								id="password"
-								onChange={handleChange}
-								type={showPassword ? "text" : "password"}
-								placeholder="Password"
-							/>
-							<img
-								height="20px"
-								width="20px"
-								title={showPassword ? "Hide password" : "Show password"}
-								src={showPassword ? hidePwdImg : showPwdImg}
-								onClick={() => setShowPassword((prevState) => !prevState)}
-								id="input_img"
-								alt="eyes"
-							/>
-							<span className="lighting"></span>
-						</div>
+						<hr />
+						<form>
+							<div className="form-group">
+								<label for="emailS">Email:</label>
+								<br />
 
-						<button type="submit" id="login">
-							Login
-						</button>
-						<div className="clearfix supporter">
-							<div className="pull-left remember-me">
-								<input id="rememberMe" type="checkbox" />
-								<label for="rememberMe">Remember Me</label>
+								<input
+									type="email"
+									className="form-control"
+									onChange={handleChange("email")}
+									name="email"
+									id="emailS"
+									value={email}
+									placeholder="bugtrack@gmail.com"
+									required
+								/>
 							</div>
-							<a className="forgot pull-right" href="/">
-								Forgot Password?
-							</a>
-						</div>
-					</form>
-				</div>
-				<div className="signup-wrapper text-center">
-					<a href="/signup">
-						Don't have an accout?{" "}
-						<span className="text-primary">Create One</span>
-					</a>
+							<div className="form-group pass pwd-container">
+								<label for="passwordS">Password:</label>
+								<br />
+								<input
+									name="password"
+									onChange={handleChange("password")}
+									type={showPassword ? "text" : "password"}
+									id="passwordS"
+									placeholder="Password"
+									value={password}
+									className="form-control"
+									required
+								/>
+								<img
+									height="20px"
+									width="20px"
+									title={showPassword ? "Hide password" : "Show password"}
+									src={showPassword ? hidePwdImg : showPwdImg}
+									onClick={() => setShowPassword((prevState) => !prevState)}
+									id="input_img"
+									alt="eyes"
+								/>
+							</div>
+
+							<div className="text-center">
+								<button
+									type="submit"
+									className="btn btn-primary ButtonF"
+									onClick={clickSubmit}
+								>
+									Submit
+								</button>
+							</div>
+							<div>
+								<p className="signinup">
+									New Here?{" "}
+									<span>
+										<a href="/SignUp">SignUp</a>
+									</span>
+								</p>
+							</div>
+						</form>
+					</section>
+					<section className="col-sm-4"></section>
 				</div>
 			</div>
 		</>

@@ -1,86 +1,102 @@
 import React, { useState } from "react";
+import showPwdImg from "../Img/Password/red-eye.png";
+import hidePwdImg from "../Img/Password/hide.png";
 
 const SignUp = () => {
-	const initialState = {
+	const [values, setValues] = useState({
 		name: "",
 		email: "",
 		password: "",
+	});
+
+	const { name, email, password } = values;
+
+	const handleChange = (name) => (event) => {
+		setValues({ ...values, error: false, [name]: event.target.value });
 	};
-	const [formData, setFormData] = useState(initialState);
 	const [showPassword, setShowPassword] = useState(false);
-	const handleChange = (e) => {
-		setFormData({ ...formData, [e.target.name]: e.target.value });
-	};
-	const handleShowPassword = () =>
-		setShowPassword((prevShowPassword) => !prevShowPassword);
+
 	return (
 		<>
-			<div className="logo text-center">
-				<h1>Bug Tracker</h1>
-			</div>
-			<div className="wrapper">
-				<div className="inner-warpper text-center">
-					<h3 className="title">Create new account</h3>
-					<form id="formvalidate">
-						<div className="input-group">
-							{/* <label className="palceholder" for="userName">
-								User Name
-							</label> */}
+			<div className="row formF">
+				<section className="col-md-4"></section>
+				<section className="col-md-4 inputF">
+					<hr />
+					<div className="text-center">
+						<h1 className="headingF">Bug Tracker</h1>
+					</div>
+					<hr />
+					<form>
+						<div className="form-group">
+							<label for="nameS">Name:</label>
+							<br />
+
 							<input
+								type="text"
 								className="form-control"
 								name="name"
-								id="name"
-								onChange={handleChange}
-								type="text"
-								placeholder="User Name"
+								id="nameS"
+								onChange={handleChange("name")}
+								value={name}
+								placeholder="bugtrack"
+								required
 							/>
-							<span className="lighting"></span>
 						</div>
-						<div className="input-group">
-							{/* <label className="palceholder" for="userName">
-								User Name
-							</label> */}
+						<div className="form-group">
+							<label for="emailS">Email:</label>
+							<br />
+
 							<input
+								type="email"
 								className="form-control"
 								name="email"
-								id="email"
-								onChange={handleChange}
-								type="email"
-								placeholder="Email"
+								id="emailS"
+								onChange={handleChange("email")}
+								value={email}
+								placeholder="bugtrack@gmail.com"
+								required
 							/>
-							<span className="lighting"></span>
 						</div>
-						<div className="input-group">
-							{/* <label className="palceholder" for="userPassword">
-								Password
-							</label> */}
+						<div className="form-group pass pwd-container">
+							<label for="passwordS">Password:</label>
+							<br />
 							<input
-								className="form-control"
 								name="password"
-								id="password"
-								onChange={handleChange}
-								type="password"
+								onChange={handleChange("password")}
+								type={showPassword ? "text" : "password"}
+								id="passwordS"
 								placeholder="Password"
+								className="form-control"
+								value={password}
+								required
 							/>
-							<span className="lighting"></span>
+							<img
+								height="20px"
+								width="20px"
+								title={showPassword ? "Hide password" : "Show password"}
+								src={showPassword ? hidePwdImg : showPwdImg}
+								onClick={() => setShowPassword((prevState) => !prevState)}
+								id="input_img"
+								alt="eyes"
+							/>
 						</div>
-
-						<button type="submit" id="login">
-							Login
-						</button>
-						<div className="clearfix supporter">
-							<div className="pull-left remember-me">
-								<input id="rememberMe" type="checkbox" />
-								<label for="rememberMe">Remember Me</label>
-							</div>
+						<br />
+						<div className="text-center">
+							<button type="submit" className="btn btn-primary ButtonF">
+								Submit
+							</button>
+						</div>
+						<div>
+							<p className="signinup">
+								Already Registered?{" "}
+								<span>
+									<a href="/SignIn">Login</a>
+								</span>
+							</p>
 						</div>
 					</form>
-				</div>
-				<div className="signup-wrapper text-center">
-					<a href="/signin">
-						Already have an account? <span className="text-primary">Login</span>
-					</a>
-				</div>
+				</section>
+				<section className="col-md-4"></section>
 			</div>
 		</>
 	);
